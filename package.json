@@ -20,5 +20,8 @@
     "mysql": "^2.15.0",
     "restify": "^6.2.3",
     "restify-cors-middleware": "^1.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0"
   }
 }

@@ -34,12 +34,12 @@ const categories = deps => {
 				const { connection, errorHandler } = deps
 
 				connection.query('UPDATE categories SET name = ? where id = ?', [name, id], (error, results) => {
-					if (error) {
+					if (error || !results.affectedRows) {
 						errorHandler(error, `Falha ao salvar a categoria ${name} - ${id}`, reject)
 						return false
 					}	
 
-					resolve({ category: { name, id: results.insertId } })
+					resolve({ category: { name, id }, affectedRows: results.affectedRows })
 				})
 			}) 
 		},
@@ -48,12 +48,12 @@ const categories = deps => {
 				const { connection, errorHandler } = deps
 
 				connection.query('DELETE from categories where id = ?', [id], (error, results) => {
-					if (error) {
+					if (error || !results.affectedRows ) {
 						errorHandler(error, `Falha ao deletar a categoria de id - ${id}`, reject)
 						return false
 					}	
 
-					resolve({ message: 'Categoria removida com sucesso!' })
+					resolve({ message: 'Categoria removida com sucesso!', affectedRows: results.affectedRows })
 				})
 			}) 
 		}
